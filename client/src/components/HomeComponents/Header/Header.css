@@ -1,0 +1,85 @@
+/* styling header container */
+
+.headerContainer{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1% 2%;
+    color: #fff;
+}
+
+
+/* Styling logo */
+
+.headerContainer > .logo > img{
+    width: 60px;
+    height: auto;
+    transition: 0.3s ease;
+}
+
+.headerContainer > .logo > img:hover{
+    transform: scale(1.2);
+}
+
+/* styling naviagatins */
+
+.headerContainer > .navs{
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerContainer > .navs > li{
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: DM Sans;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.headerContainer > .navs > li > a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.headerContainer > .navs > li > a:hover{
+    color: rgb(207, 207, 229);
+}
+
+
+/* Adding line animation to navigation options */
+
+.headerContainer > .navs > li > a::after{
+    content: "";
+    width: 0;
+    height: 2px;
+    background-color: var(--sec-clr);
+    border-radius: 20px;
+    margin-top: 5px;
+    display: block;
+    transition: width 0.3s ease;
+}
+.headerContainer > .navs > li:nth-child(1) > a::after,
+.headerContainer > .navs > li > a:focus::after,
+ .headerContainer > .navs > li > a:hover::after{
+    width: 30px;
+}
+
+/* styling right side auth icon */
+
+.headerContainer > .authIcon > .icon{
+    color: #fff;
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.headerContainer > .authIcon > .icon:hover{
+    color: var(--sec-clr);
+    transform: scale(0.8);
+}
