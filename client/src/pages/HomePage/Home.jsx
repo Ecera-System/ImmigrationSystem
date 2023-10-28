@@ -6,7 +6,7 @@ import Hero from '../../components/HomeComponents/HeroSection/Hero';
 function Home() {
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Hero />
     </div>
   )
