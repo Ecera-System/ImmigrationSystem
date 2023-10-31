@@ -34,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 10;
 }
 
 .headerContainer > .navs > li{
@@ -67,7 +68,7 @@
     display: block;
     transition: width 0.3s ease;
 }
-.headerContainer > .navs > li:nth-child(1) > a::after,
+/* .headerContainer > .navs > li:nth-child(1) > a::after, */
 .headerContainer > .navs > li > a:focus::after,
  .headerContainer > .navs > li > a:hover::after{
     width: 30px;
@@ -108,7 +109,7 @@
 }
 
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 650px) {
     .headerContainer{
         padding: 3%;
     }

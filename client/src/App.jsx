@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Support from './pages/Support&Asst/Support';
 import Header from './components/HomeComponents/Header/Header';
 import OurServices from './pages/OurServices/OurServices';
+import Auth from './pages/Auth/Auth';
+import Register from './pages/Auth/Register/Register';
 
 function App() {
 
@@ -16,7 +18,9 @@ function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/auth' element={<Auth />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
         <Route path='/about' element={<AboutUs />} />
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/services' element={<OurServices />} />
