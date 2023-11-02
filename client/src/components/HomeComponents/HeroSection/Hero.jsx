@@ -7,10 +7,10 @@ function Hero() {
   return (
     <div className='heroContainer'>
       <div className="heroText">
-        <h1>Seamless 
+        <div className='heading'>Seamless 
           <span> Immigration </span>
           Solutions Await You
-        </h1>
+        </div>
 
           <Link>Explore Now</Link>
       </div>

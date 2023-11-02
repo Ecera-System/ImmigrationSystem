@@ -58,12 +58,25 @@
     position: relative;
     right: 12px;
     z-index: 1;
-    border: 3px solid var(--sec-clr);
+    border: 3px solid #fff;
     border-left: none;
     transition: 0.3s ease;
 }
 
+.authContainer > div > .btn > .text:hover{
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.3);
+    color: rgb(22, 22, 237);
+}
 
+.authContainer > .registerBtn > .btn > .icon{
+    background-color: #fff;
+    border-color: var(--sec-clr);
+}
+
+.authContainer > .registerBtn > .btn > .text{
+    background-color: #fff;
+    border-color: var(--sec-clr);
+}
 
 .authContainer > .separator{
     width: 20%;

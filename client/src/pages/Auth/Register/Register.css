@@ -1,0 +1,150 @@
+.authenCon{
+    width: 100vw;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.authBox{
+    width: 1100px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--sec-clr);
+    box-shadow: 2px 2px 5px 2px #ffd9004b;
+    border-radius: 30px;
+    font-family: DM Sans;
+}
+
+.authBox > .left{
+    width: 50%;
+    border-radius: 28px 150px 150px 28px;
+    height: 100%;
+    background-color: var(--sec-clr);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.authBox > .left > h1{
+    font-size: 45px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--pri-clr);
+}
+
+.authBox > .left > h1::after{
+    background-color: var(--pri-clr);
+    margin: 20px auto;
+}
+
+.authBox > .left > h1 > span{
+    display: block;
+    font-family: Faster One;
+    font-size: 55px;
+    font-weight: 400;
+}
+
+.authBox > .left > p{
+    width: 90%;
+    font-size: 20px;
+    color: var(--pri-clr);
+    font-weight: 400;
+    text-align: center;
+}
+
+.authBox > .left > a{
+    text-decoration: none;
+    font-size: 22px;
+    font-weight: 300;
+    color: #fff;
+    padding: 8px 15px;
+    background-color: var(--pri-clr);
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.authBox > .left > a > span{
+    color: var(--sec-clr);
+}
+
+
+.authBox > .right{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.authBox > .right > h1::after{
+    margin-bottom: 20px;
+}
+
+.authBox > .right > .authIcons{
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.authBox > .right > .authIcons > .icon{
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 50%;
+    color: var(--pri-clr);
+    cursor: pointer;
+}
+
+.authBox > .right > form{
+    margin-top: 10px;
+    width: 60%;
+}
+
+.authBox > .right > form > div{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.authBox > .right > form > div > label{
+    font-size: 16px;
+    margin-bottom: 3px;
+}
+
+.authBox > .right > form > div > input{
+    font-size: 16px;
+    font-weight: 500;
+    padding: 7px 10px;
+    outline: none;
+    border: 1px solid #fff;
+    background-color: transparent;
+    border-radius: 5px;
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+.authBox > .right > form > button{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 7px 10px;
+    color: var(--pri-clr);
+    background-color: var(--sec-clr);
+    border: 1px solid var(--sec-clr);
+    border-radius: 20px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    letter-spacing: 1px;
+}
+.authBox > .right > form > button:hover{
+    background-color: #f9f153;
+    color: var(--pri-clr);
+}

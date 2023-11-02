@@ -22,7 +22,7 @@
     /* justify-content: space-between; */
 }
 
-.heroContainer > .heroText > h1{
+.heroContainer > .heroText > .heading{
     width: 70%;
     font-size: 50px;
     font-weight: 800;
@@ -33,7 +33,7 @@
 
 }
 
-.heroContainer > .heroText > h1 > span{
+.heroContainer > .heroText > .heading > span{
     font-weight: 500;
     font-size: 65px;
     font-family: Faster One;
@@ -95,7 +95,7 @@
         justify-content: space-between;
     }
     
-    .heroContainer > .heroText > h1{
+    .heroContainer > .heroText > .heading{
         width: 80%;
         font-size: 40px;
         font-weight: 600;
@@ -103,7 +103,7 @@
         text-align: center;
     }
     
-    .heroContainer > .heroText > h1 > span{
+    .heroContainer > .heroText > .heading > span{
         font-size: 55px;
     }
     
@@ -147,7 +147,7 @@
         justify-content: flex-start;
     }
 
-    .heroContainer > .heroText > h1{
+    .heroContainer > .heroText > .heading{
         width: 100%;
         font-size: 30px;
         font-weight: 600;
@@ -156,7 +156,7 @@
         margin-top: -5%;
     }
     
-    .heroContainer > .heroText > h1 > span{
+    .heroContainer > .heroText > .heading > span{
         font-size: 35px;
     }
     .heroContainer > .heroText > a{
