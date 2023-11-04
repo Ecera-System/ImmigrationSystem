@@ -66,6 +66,9 @@ function Register() {
     }else if(!(/\d/).test(signUpData.password)){
       errors.passError = "Atleast 1 numeric value required";
       
+    }else if((signUpData.conPassword).includes(' ')){
+      errors.passError = "Password can't contains space";
+
     }else if((signUpData.conPassword) !== (signUpData.password)){
       errors.passError = "Password doesn't match";
 
@@ -73,10 +76,10 @@ function Register() {
 
     //adding confirm password errors
     if(!signUpData.conPassword){
-      errors.conPassError = 'Password is required';
+      errors.conPassError = 'Confirm-password is required';
 
     }else if((signUpData.conPassword) !== (signUpData.password)){
-      errors.conPassError = "Confirm-Password doesn't match";
+      errors.conPassError = "Confirm-p/assword doesn't match";
 
     } 
 
@@ -93,7 +96,7 @@ function Register() {
       conPassError: ''
     }
 
-    return validated;
+    return validated; //return true if successfully validate else return false
 
 
   }
