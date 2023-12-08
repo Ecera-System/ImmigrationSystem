@@ -4,7 +4,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Link } from 'react-router-dom';
 
-function Auth() {
+function AuthCard() {
     return (
         <div className='authController'>
             <div className="authContainer">
@@ -32,4 +32,4 @@ function Auth() {
     )
 }
 
-export default Auth
+export default AuthCard;
