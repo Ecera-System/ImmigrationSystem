@@ -172,6 +172,21 @@
     color: var(--pri-clr);
 }
 
+.authBox > .right > form > .forgotReset{
+    display: flex;
+    justify-content: space-between;
+}
+
+.forgotReset > a{
+    color: #fff;
+    text-decoration: none;
+}
+
+.forgotReset > a:hover{
+    color: #b6b2e1;
+    text-decoration: underline;
+}
+
 /* Adding responsiveness */
 
 @media (max-width: 1033px) {

@@ -61,7 +61,7 @@ function ResetPass() {
         if (!formData.confirmNewPassword) {
             errors.confNewPassError = 'Confirm-password is required';
 
-        } else if ((signUpData.conPassword) !== (signUpData.confirmNewPassword)) {
+        } else if ((formData.newPassword) !== (formData.confirmNewPassword)) {
             errors.confNewPassError = "Confirm-password doesn't match";
 
         }
@@ -87,11 +87,20 @@ function ResetPass() {
         setFormData({ ...formData, [name]: value });
     }
 
+    //function to submit form data
+    const submitHandler = (e) =>{
+        e.preventDefault();
+
+        if(validateFormFun()){
+            console.log(formData);
+        }
+    }
+
     return (
         <div className='passContainer'>
             <div className='passCard'>
                 <h1>Reset Password</h1>
-                <form>
+                <form onSubmit={submitHandler} >
                     <div>
                         <label htmlFor="old-pass">Old Password</label>
                         <input type="text" id='old-pass' name='oldPassword' onChange={handleChange} placeholder='Enter Old Password' />
@@ -103,7 +112,7 @@ function ResetPass() {
                     </div>
                     <div>
                         <label htmlFor="old-pass">New Password</label>
-                        <input type="text" id='old-pass' name='newPassword' onChange={handleChange} placeholder='Enter New Password' />
+                        <input type="password" id='old-pass' name='newPassword' onChange={handleChange} placeholder='Enter New Password' />
                         <div className="error">
                             {
                                 errors.newPassError && errors.newPassError
@@ -112,7 +121,7 @@ function ResetPass() {
                     </div>
                     <div>
                         <label htmlFor="old-pass">Confirm New Password</label>
-                        <input type="text" id='old-pass' name='confirmNewPassword' onChange={handleChange} placeholder='Confirm New Password' />
+                        <input type="password" id='old-pass' name='confirmNewPassword' onChange={handleChange} placeholder='Confirm New Password' />
                         <div className="error">
                             {
                                 errors.confNewPassError && errors.confNewPassError

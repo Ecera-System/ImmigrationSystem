@@ -133,6 +133,10 @@ function Login() {
                 }
                 </div>
             </div>
+            <section className='forgotReset'>
+              <Link to={'/reset-pass'}>Reset Password</Link>
+              <Link to={'/forgot-pass'}>Forgot Password</Link>
+            </section>
             <button>Login</button>
           </form>
         </div>
