@@ -1,0 +1,72 @@
+.vefifContainer{
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: DM Sans;
+}
+
+.vefifContainer > form {
+    margin: auto;
+    width: 414px;
+    height: 334px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid var(--sec-clr); */
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px 4px rgba(242, 242, 7, 0.575);
+}
+
+.vefifContainer > form > h1{
+    font-size: 38px;
+    font-weight: 500;
+}
+
+.vefifContainer > form > input{
+    padding: 10px;
+    border: 1px solid var(--sec-clr);
+    outline: none;
+    border-radius: 5px;
+    font-size: 25px;
+    background-color: transparent;
+    color: #fff;
+    letter-spacing: 4px;
+    text-align: center;
+}
+
+.vefifContainer > form > button {
+    width: 40%;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    background-color: #552583;
+    cursor: pointer;
+    transition: 0.3s ease;
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+.vefifContainer > form > button:hover{
+    background-color: #3c1363;
+}
+
+.vefifContainer > form > h3{
+    font-size: 16px;
+    font-weight: 300;
+    text-align: center;
+    cursor: pointer;
+    color: #dcd210;
+    text-decoration: underline;
+}
+
+.vefifContainer > form > h3:hover{
+    color: #6f75e4;
+}
+

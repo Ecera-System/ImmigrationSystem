@@ -110,7 +110,7 @@
 .authBox > .right > form > div{
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    /* margin: 0 0 5px 0; */
 }
 
 .authBox > .right > form > div label{
@@ -162,7 +162,7 @@
     background-color: var(--sec-clr);
     border: 1px solid var(--sec-clr);
     border-radius: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
     cursor: pointer;
     transition: 0.3s ease;
     letter-spacing: 1px;
@@ -186,6 +186,8 @@
     color: #b6b2e1;
     text-decoration: underline;
 }
+
+
 
 /* Adding responsiveness */
 

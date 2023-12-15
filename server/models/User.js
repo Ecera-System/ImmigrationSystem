@@ -11,11 +11,16 @@ const userSchema = mongoose.Schema(
       trim: true,
     },
     contactNumber: {
-      type: String,
-      validate: [
-        validator.isMobilePhone,
-        "Please provide a valid contact number.",
-      ],
+      phoneNumber: {
+        type: String,
+        validate: [
+          validator.isMobilePhone,
+          "Please provide a valid contact number.",
+        ],
+      },
+      countryCode: {
+        type: String,
+      }
     },
     email: {
       type: String,

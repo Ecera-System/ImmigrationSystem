@@ -8,11 +8,12 @@ const Profile = require('../models/Profile.js');
 const User = require('../models/User.js');
 
 exports.signup = async (req, res) => {
+    console.log("API call server");
     try { 
         const { name, contactNumber, email, password } = req.body;
 
         const findEmail = await User.findOne({ email });
-        if (findEmail) return res.status(406).json({ error: "This email already exists!" });
+        if (findEmail) return res.status(400).json({ message: "This email already exists!" });
 
         const passwordHash = await bcrypt.hash(password, 12);
 
@@ -39,7 +40,11 @@ exports.signup = async (req, res) => {
             name: name
         });
 
-        res.status(200).json({ id: result._id, email });
+        // res.status(200).json({ id: result._id, email });
+        res.status(200).json({ 
+            success: true,
+            message: "OTP Sent successfully",
+         });
 
     } catch (error) {
         res.status(500).json({ error: error.message });

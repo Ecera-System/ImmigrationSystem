@@ -11,6 +11,7 @@ import SupportAndAsstPage from './pages/Support&AsstPage';
 import HomePage from './pages/HomePage';
 import Header from './components/HomeComponents/Header/Header';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import VerifyOTPPage from './pages/VerifyOTPPage';
 
 
 
@@ -30,6 +31,7 @@ function App() {
         <Route path='/dashboard' element={<DashboardPage />} />
         <Route path='/support' element={<SupportAndAsstPage />} />
         <Route path='/reset-pass' element={<ResetPasswordPage />} />
+        <Route path='/verify-otp' element={<VerifyOTPPage />} />
       </Routes>
     </div>
   )

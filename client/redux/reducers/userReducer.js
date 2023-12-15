@@ -4,6 +4,7 @@ const initialState = {
     loading: false,
     isAuthenticated: false,
     user: {},
+    message: '',
     error: null,
 }
 
@@ -15,9 +16,7 @@ const userReducer = createSlice({
             return { ...state }
         },
         userSuccess: (state, action) =>{
-            state.loading = true;
-            state.isAuthenticated = true;
-            state.user = action.payload;
+            state.message = action.payload.message;
         },
         userFail: (state, action) =>{
             state.loading = false,
