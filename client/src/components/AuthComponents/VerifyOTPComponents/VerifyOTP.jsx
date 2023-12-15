@@ -1,46 +1,59 @@
 import React, { useState, useRef } from 'react';
 import './VerifyOTP.css';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { activateUser } from '../../../../redux/actions/userAction';
+import toast from 'react-hot-toast';
+import { clearSignupMessageAndError } from '../../../../redux/reducers/userReducer';
 // import toast from 'react-hot-toast';
 
 
 
 
 const VerifyOTP = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {user, error, message, redirect} = useSelector(state=>state.user);
 
-    const [otp, setOtp] = useState(['', '', '', '']);
-    const otpInputs = Array.from({ length: 4 }, (_, index) => useRef(null));
+    const [otp, setOtp] = useState('');
+    const [otpError, setError] = useState('');
 
-    useEffect(() => {
-
-    }, [])
-
-    const handleChange = (e, index) => {
-        const { value, name } = e.target;
-
-        if (isNaN(value)) return; // Allow only numeric input
-
-        const updatedOtp = [...otp];
-        updatedOtp[index] = value;
-        setOtp(updatedOtp);
-
-        // Move focus to the previous or next input
-        if (name === 'backspace' && index > 0) {
-            otpInputs[index - 1].current.focus();
-        } else if (index < otpInputs.length - 1 && value !== '') {
-            otpInputs[index + 1].current.focus();
+    useEffect(()=>{
+        if(error){
+            toast.error(error);
+            dispatch(clearSignupMessageAndError())
         }
-    };
+        if(message){
+            toast.success(message);
+            dispatch(clearSignupMessageAndError())
+        }
+        if(redirect){
+            navigate(redirect);
+        }
+       
+    },[error, message])
 
+    const submitOTP = (e) =>{
+        e.preventDefault();
+        if(!otp){
+            setError("Enter you OTP");
+        } else {
+            dispatch(activateUser({code: otp, email: user.email}))
+        }
+    }
 
     return (
         <div className='vefifContainer'>
-            <form>
+            <form onSubmit={submitOTP}>
                 <h1>OTP Verification</h1>
-                <input type="number" placeholder='Enter OTP here' />
+                <p>We have sent an OTP on {user.email}</p>
+                <input type="number" onChange={(e)=>{setOtp(e.target.value)}} placeholder='Enter OTP here' />
+                {
+                    otpError && 
+                    <p>{otpError}</p>
+                }
                 <button>Verify</button>
                 <h3 >Resend OTP</h3>
             </form>

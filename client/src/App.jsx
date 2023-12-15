@@ -12,6 +12,7 @@ import HomePage from './pages/HomePage';
 import Header from './components/HomeComponents/Header/Header';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
+import Spinner from './assets/Spinner/ButtonSpinner';
 
 
 
@@ -31,7 +32,8 @@ function App() {
         <Route path='/dashboard' element={<DashboardPage />} />
         <Route path='/support' element={<SupportAndAsstPage />} />
         <Route path='/reset-pass' element={<ResetPasswordPage />} />
-        <Route path='/verify-otp' element={<VerifyOTPPage />} />
+        <Route path='/user/verify-otp' element={<VerifyOTPPage />} />
+        <Route path='/spinner' element={<Spinner />} />
       </Routes>
     </div>
   )

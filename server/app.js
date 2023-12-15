@@ -4,12 +4,14 @@ require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./utils/errorHandler");
+const cookieParser = require('cookie-parser');
 
 // <-- Middleware -->
 app.use(cors());
 // app.use("/api/v1/course-enroll/stripe/webhook", express.raw({ type: "*/*" })); // Stripe webhook
 app.use(express.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ limit: "10mb", extended: false }));
+app.use(cookieParser());
 app.use("/api/v1/", express.static("public"));
 
 // <-- Routes -->

@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import './Register.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../../../../redux/actions/userAction';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import {toast} from 'react-hot-toast';
+import { clearSignupMessageAndError } from '../../../../redux/reducers/userReducer';
+import ButtonSpinner from '../../../assets/Spinner/ButtonSpinner';
 
 function Register() {
   const dispatch = useDispatch();
-  const {loading, message, error} = useSelector(state=>state.user);
+  const navigate = useNavigate();
+  const {loading, message, error, redirect} = useSelector(state=>state.user);
 
   let validated = false;
 
@@ -38,9 +41,14 @@ function Register() {
   useEffect(()=>{
     if(message){
       toast.success(message);
+      dispatch(clearSignupMessageAndError())
     }
     if(error){
       toast.error(error)
+      dispatch(clearSignupMessageAndError())
+    }
+    if(redirect){
+      navigate(redirect);
     }
   },[message, error])
 
@@ -254,7 +262,11 @@ function Register() {
                 </div>
               </div>
             </div>
-            <button>Sign Up</button>
+            <button>
+              {
+                loading ? <ButtonSpinner /> : 'Sign Up'
+              }
+            </button>
           </form>
         </div>
       </div>

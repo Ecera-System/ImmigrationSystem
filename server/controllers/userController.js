@@ -7,18 +7,21 @@ const { verifyEmail } = require('../middlewares/emailSender.js');
 const Profile = require('../models/Profile.js');
 const User = require('../models/User.js');
 
-exports.signup = async (req, res) => {
-    console.log("API call server");
+exports.signup = async (req, res, resendCode) => {
     try { 
         const { name, contactNumber, email, password } = req.body;
 
         const findEmail = await User.findOne({ email });
-        if (findEmail) return res.status(400).json({ message: "This email already exists!" });
+        if (findEmail) return res.status(400).json({ error: "This email already exists!" });
+
+        if(findEmail && findEmail.status === 'inactive'){
+            await resendCode(req, res) // calling resend code controller function
+        }
 
         const passwordHash = await bcrypt.hash(password, 12);
 
         const code = Math.round(Math.random() * 90000) + 10000;
-        const expirationTime = new Date(Date.now() + 2 * 60 * 1000);
+        const expirationTime = new Date(Date.now() + process.env.OTP_EXPIRATION_TIME * 60 * 1000);
 
         verifyEmail({ email, code });
 
@@ -43,7 +46,9 @@ exports.signup = async (req, res) => {
         // res.status(200).json({ id: result._id, email });
         res.status(200).json({ 
             success: true,
+            user: result,
             message: "OTP Sent successfully",
+            redirect: "/user/verify-otp"
          });
 
     } catch (error) {
@@ -75,12 +80,18 @@ exports.resendCode = async (req, res) => {
             { runValidators: true }
         );
 
-        res.status(200).json(result);
+        res.status(200).json({
+            success: true,
+            user: result,
+            message: "OTP sent successfully"
+        });
 
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 }
+
+// annot destructure property 'code' of 'user.verificationCode' as it is null.
 
 exports.activateAccount = async (req, res) => {
     try {
@@ -91,13 +102,31 @@ exports.activateAccount = async (req, res) => {
         const { code: dbCode, expirationTime } = user.verificationCode;
         const now = new Date();
 
-        if (expirationTime < now) return res.status(408).json({ error: "Invalid verification code!" });
+        if (expirationTime < now) return res.status(408).json({ error: "Verification code expired! Resend the code" });
         if (Number(code) !== dbCode) return res.status(408).json({ error: "Wrong verification code!" });
 
         user.verificationCode = null;
         user.status = 'active';
         await user.save();
-        res.status(200).json({ success: 'Your account verified successfully!' });
+
+        const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
+
+        const cookieOptions = {
+            expires: new Date(
+                Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
+            ),
+            httpOnly: true,
+        }
+
+        res.status(200).cookie('token', token, cookieOptions).json({
+            success: true,
+            auth_token: 'Bearer ' + token,
+            message: "Your account verified successfully!",
+            user,
+            redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+        });
+
+        // res.status(200).json({ success: 'Your account verified successfully!' });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -118,9 +147,11 @@ exports.signin = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
         res.status(200).json({
+            success: true,
             auth_token: 'Bearer ' + token,
-            success: "Login success!",
-            redirect: user.role === 'admin' ? '/admin' : '/profile/course',
+            message: "Logged in successfully!",
+            user,
+            redirect: user.role === 'admin' ? '/admin' : '/user/profile',
         });
 
     } catch (err) {
@@ -154,8 +185,10 @@ exports.googleSignin = async (req, res) => {
             const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
             res.status(200).json({
+                success: true,
+                user,
                 auth_token: 'Bearer ' + token,
-                success: "Login success!",
+                message: "Logged in successfully!",
                 redirect: user.role === 'admin' ? '/admin' : '/profile/course',
             });
         }

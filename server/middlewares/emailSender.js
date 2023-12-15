@@ -29,17 +29,16 @@ exports.verifyEmail = ({ email, code }) => {
             }
         </style>
         <div id="box" style='width: 500px; margin: 0 auto; border-radius: 8px; background-color: white; padding: 30px;'>
-            <h2 style='text-align: center; margin: 10px 0; font-size: 30px; color: #1D4ED8;'>Ecera System
-                Training
+            <h2 style='text-align: center; margin: 10px 0; font-size: 30px; color: #1D4ED8;'>Ecera Immigration System
             </h2>
             <h1 style="margin: 0 0 15px 0; text-align: center; font-size: 20px; font-weight: 400; color: #6a6a6a;">Verify your email</h1>
             <hr />
             <h3 style="margin: 15px 0; text-align: center; font-size: 16px; font-weight: 500; color: #363636;">
-                To help us confirm it’s you, Use this code below to activate your account.
+                To help us confirm it’s you, Use this code below to activate your account. valid for only ${process.env.OTP_EXPIRATION_TIME} minutes.
             </h3>
             <p style="font-size: 40px; text-align: center; margin: 10px 0;">${code}</p>
             <p style="text-align: center; margin-bottom: 20px; font-size: 16px">
-                This code will expire in 2 minutes.
+                This code will expire in ${process.env.OTP_EXPIRATION_TIME} minutes.
             </p>
         </div>
         <p style="text-align: center; color: #363636;">&copy; Ecera System</p>
