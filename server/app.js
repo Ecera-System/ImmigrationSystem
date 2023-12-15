@@ -4,7 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./utils/errorHandler");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 
 // <-- Middleware -->
 app.use(cors());
@@ -37,7 +37,7 @@ app.use("/api/v1/user", require("./routes/v1/userRoutes.js"));
 app.all("*", (req, res) => {
   res.send("No Route found.");
 });
-
+//
 // <-- Global error handler -->
 app.use(errorHandler);
 
