@@ -2,9 +2,18 @@ import React, { useEffect, useState } from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import '../RegisterComponents/Register.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import ButtonSpinner from '../../../assets/Spinner/ButtonSpinner';
+import { clearSignupMessageAndError } from '../../../../redux/reducers/userReducer';
+import {toast} from 'react-hot-toast';
+import { signin } from '../../../../redux/actions/userAction';
+
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const {loading, message, error, redirect} = useSelector(state=>state.user);
 
   let validated = false;
 
@@ -19,6 +28,20 @@ function Login() {
     email: '',
     password: '',
   })
+
+  useEffect(()=>{
+    if(message){
+      toast.success(message);
+      dispatch(clearSignupMessageAndError())
+    }
+    if(error){
+      toast.error(error)
+      dispatch(clearSignupMessageAndError())
+    }
+    if(redirect){
+      navigate(redirect);
+    }
+  },[message, error])
 
 
   const validateLoginData = () =>{
@@ -55,12 +78,6 @@ function Login() {
     }else if(!(/\d/).test(loginData.password)){
       errors.passError = "Atleast 1 numeric value required";
       
-    }else if((loginData.conPassword).includes(' ')){
-      errors.passError = "Password can't contains space";
-
-    }else if((loginData.conPassword) !== (loginData.password)){
-      errors.passError = "Password doesn't match";
-
     }
 
     setValidatioErrors(errors);
@@ -92,6 +109,7 @@ function Login() {
 
      if(validateLoginData()){ //calling validateSignupData function to validate all signup data
       console.log(loginData);
+      dispatch(signin(loginData));
      }else{
       console.log(validationErrors)
      }
@@ -137,7 +155,11 @@ function Login() {
               <Link to={'/reset-pass'}>Reset Password</Link>
               <Link to={'/forgot-pass'}>Forgot Password</Link>
             </section>
-            <button>Login</button>
+            <button>
+              {
+                loading ? <ButtonSpinner /> : 'Login'
+              }
+            </button>
           </form>
         </div>
       </div>

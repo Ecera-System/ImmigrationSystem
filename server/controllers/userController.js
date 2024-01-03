@@ -6,17 +6,21 @@ const googleClient = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID);
 const { verifyEmail } = require('../middlewares/emailSender.js');
 const Profile = require('../models/Profile.js');
 const User = require('../models/User.js');
+const cookieOptions = require('../utils/cookieOptions.js');
 
-exports.signup = async (req, res, resendCode) => {
+exports.signup = async (req, res) => {
     try { 
         const { name, contactNumber, email, password } = req.body;
 
         const findEmail = await User.findOne({ email });
+
+        if (findEmail && findEmail.status === 'inactive') return res.status(400).json({ 
+            resendCode: true,
+            email
+        });
+
         if (findEmail) return res.status(400).json({ error: "This email already exists!" });
 
-        if(findEmail && findEmail.status === 'inactive'){
-            await resendCode(req, res) // calling resend code controller function
-        }
 
         const passwordHash = await bcrypt.hash(password, 12);
 
@@ -59,7 +63,7 @@ exports.signup = async (req, res, resendCode) => {
 exports.resendCode = async (req, res) => {
     try {
         const { email } = req.body;
-        const findUser = await User.findOne({ email: email });
+        const findUser = await User.findOne({ email });
         if (!findUser) return res.status(404).json({ error: "This email doesn't exists." });
         if (findUser.status === 'active') return res.status(406).json({ error: "This email already activated!." });
 
@@ -82,8 +86,9 @@ exports.resendCode = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            user: result,
-            message: "OTP sent successfully"
+            user: findUser,
+            message: "OTP sent successfully",
+            redirect: "/user/verify-otp"
         });
 
     } catch (error) {
@@ -111,16 +116,11 @@ exports.activateAccount = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
-        const cookieOptions = {
-            expires: new Date(
-                Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-            ),
-            httpOnly: true,
-        }
+        const Bearer = 'Bearer ' + token;
 
-        res.status(200).cookie('token', token, cookieOptions).json({
+        res.status(200).cookie('token', Bearer, cookieOptions).json({
             success: true,
-            auth_token: 'Bearer ' + token,
+            auth_token: Bearer,
             message: "Your account verified successfully!",
             user,
             redirect: user.role === 'admin' ? '/admin' : '/user/profile',
@@ -146,9 +146,11 @@ exports.signin = async (req, res) => {
 
         const token = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET);
 
-        res.status(200).json({
+        const Bearer = 'Bearer ' + token;
+
+        res.status(200).cookie('token', Bearer, cookieOptions).json({
             success: true,
-            auth_token: 'Bearer ' + token,
+            auth_token: Bearer,
             message: "Logged in successfully!",
             user,
             redirect: user.role === 'admin' ? '/admin' : '/user/profile',
@@ -189,7 +191,7 @@ exports.googleSignin = async (req, res) => {
                 user,
                 auth_token: 'Bearer ' + token,
                 message: "Logged in successfully!",
-                redirect: user.role === 'admin' ? '/admin' : '/profile/course',
+                redirect: user.role === 'admin' ? '/admin' : '/user/profile',
             });
         }
         else {
@@ -209,11 +211,12 @@ exports.googleSignin = async (req, res) => {
             });
 
             const token = jwt.sign({ id: result._id }, process.env.ACCESS_TOKEN_SECRET);
+            const Bearer = 'Bearer ' + token;
 
-            res.status(200).json({
-                auth_token: 'Bearer ' + token,
+            res.status(200).cookie('token', Bearer, cookieOptions).json({
+                auth_token: Bearer,
                 success: "Login success!",
-                redirect: user.role === 'admin' ? '/admin' : '/profile',
+                redirect: user.role === 'admin' ? '/admin' : '/user/profile',
             });
         };
 
@@ -224,9 +227,14 @@ exports.googleSignin = async (req, res) => {
 
 exports.getSingleUser = async (req, res, next) => {
     try {
-        const user = await User.findOne({ _id: req.decoded.id }).populate('profile').populate('courses');
-        res.status(200).json(user);
+        const user = await User.findOne({ _id: req.decoded.id }).populate('profile');
+        res.status(200).json({
+            success: true, 
+            user,
+            redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+        });
     } catch (err) {
-        next(err)
+        return res.status(500).json({ error: err.message });
+        next();
     }
 };

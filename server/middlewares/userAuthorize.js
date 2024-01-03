@@ -4,11 +4,11 @@ const User = require("../models/User");
 
 const userAuthorize = (req, res, next) => {
   try {
-    const bearer = req.headers.authorization;
+    const bearer = req.cookies.token;
     if (!bearer) {
       console.error("No bearer token found");
       return res.status(401).json({
-        error: "Unauthorized access!",
+        err: "Unauthorized access!",
         logout: true,
       });
     }

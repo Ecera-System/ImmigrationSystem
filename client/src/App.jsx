@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
 import LoginPage from './pages/LoginPage';
@@ -12,11 +12,18 @@ import HomePage from './pages/HomePage';
 import Header from './components/HomeComponents/Header/Header';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
-import Spinner from './assets/Spinner/ButtonSpinner';
+import { useDispatch } from 'react-redux';
+import { loadUser } from '../redux/actions/userAction';
+import UserDashboard from './pages/UserDashboard';
 
 
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(loadUser());
+  },[])
 
   return (
     <div>
@@ -33,7 +40,7 @@ function App() {
         <Route path='/support' element={<SupportAndAsstPage />} />
         <Route path='/reset-pass' element={<ResetPasswordPage />} />
         <Route path='/user/verify-otp' element={<VerifyOTPPage />} />
-        <Route path='/spinner' element={<Spinner />} />
+        <Route path='/user/dashboard' element={<UserDashboard />} />
       </Routes>
     </div>
   )

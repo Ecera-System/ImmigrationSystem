@@ -2,13 +2,11 @@ import React, { useState, useRef } from 'react';
 import './VerifyOTP.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { activateUser } from '../../../../redux/actions/userAction';
+import { activateUser, resendCode } from '../../../../redux/actions/userAction';
 import toast from 'react-hot-toast';
 import { clearSignupMessageAndError } from '../../../../redux/reducers/userReducer';
-// import toast from 'react-hot-toast';
-
+import ButtonSpinner from '../../../assets/Spinner/ButtonSpinner';
 
 
 
@@ -44,6 +42,10 @@ const VerifyOTP = () => {
         }
     }
 
+    const resendCodeFun = () =>{
+        dispatch(resendCode(user.email))
+    }
+
     return (
         <div className='vefifContainer'>
             <form onSubmit={submitOTP}>
@@ -54,8 +56,12 @@ const VerifyOTP = () => {
                     otpError && 
                     <p>{otpError}</p>
                 }
-                <button>Verify</button>
-                <h3 >Resend OTP</h3>
+                <button>
+              {
+                loading ? <ButtonSpinner /> : 'Verify'
+              }
+            </button>
+                <h3 onClick={resendCodeFun}>Resend OTP</h3>
             </form>
         </div>
     );
