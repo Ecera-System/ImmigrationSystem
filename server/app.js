@@ -5,6 +5,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const errorHandler = require("./utils/errorHandler");
 const cookieParser = require('cookie-parser');
+const path = require('path');
 
 // <-- Middleware -->
 app.use(cors());
@@ -34,9 +35,12 @@ app.use("/api/v1/user", require("./routes/v1/userRoutes.js"));
 // //
 // app.use("/api/v1/reward", require("./routes/v1/rewardRoute"));
 
-app.all("*", (req, res) => {
-  res.send("No Route found.");
-});
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
+app.get("*", (req, res)=>{
+    res.sendFile(path.resolve(__dirname, "../client/dist/index.html"))
+})
+
 
 // <-- Global error handler -->
 app.use(errorHandler);
