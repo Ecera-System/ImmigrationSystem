@@ -1,0 +1,95 @@
+.docContainer {
+    width: 100%;
+    height: 87vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.docContainer>.docBox {
+    width: 90%;
+    height: 90%;
+    background-color: rgb(13, 3, 36);
+    border-radius: 10px;
+    border: 1px solid gold;
+    box-shadow: 1px 1px 8px 0 rgba(255, 255, 0, 0.692);
+}
+
+.docContainer>.docBox>h1 {
+    text-align: center;
+    font-family: DM Sans;
+    margin: 10px;
+    text-transform: capitalize;
+}
+
+.docContainer>.docBox>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.docContainer>.docBox>div>a {
+    text-decoration: none;
+    width: 150px;
+    height: 150px;
+    font-size: 15px;
+    border-radius: 50%;
+    font-family: Denk One;
+    background-color: gold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 20px 50px;
+    box-shadow: -1px -1px 2px 2px #ffffffcd, 3px 3px 5px 3px #00000096 inset;
+}
+
+.docContainer>.docBox>div>a:hover{
+    box-shadow: -1px -1px 2px 2px #ffffffcd, 3px 3px 5px 3px #00000096 inset, 1px 1px 10px 2px #ffffffcd;
+}
+
+
+.docContainer>.docBox>section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10% auto;
+}
+
+.docContainer>.docBox>section>a {
+    text-decoration: none;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 10px;
+    font-family: Denk One;
+    background-color: rgb(46, 58, 71);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 20px 50px;
+    padding: 10px;
+    box-shadow: -1px -1px 2px 2px #ffffffcd, 3px 3px 5px 3px #00000096 inset;
+}
+
+.docContainer>.docBox>div>a:hover{
+    box-shadow: -1px -1px 2px 2px #ffffffcd, 3px 3px 5px 3px #00000096 inset, 1px 1px 10px 2px #ffffffcd;
+}
+
+
+@media screen and (max-width: 700px) {
+    .docContainer>.docBox>div>a {
+        width: 100px;
+        height: 100px;
+        margin: 30px 2px;
+        font-size: 10px;
+    }
+
+    .docContainer>.docBox>section>a{
+        font-size: 15px;
+    }
+}

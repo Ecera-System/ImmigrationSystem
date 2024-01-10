@@ -123,7 +123,7 @@ exports.activateAccount = async (req, res) => {
             auth_token: Bearer,
             message: "Your account verified successfully!",
             user,
-            redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+            redirect: user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard',
         });
 
         // res.status(200).json({ success: 'Your account verified successfully!' });
@@ -153,7 +153,7 @@ exports.signin = async (req, res) => {
             auth_token: Bearer,
             message: "Logged in successfully!",
             user,
-            redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+            redirect: user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard',
         });
 
     } catch (err) {
@@ -191,7 +191,7 @@ exports.googleSignin = async (req, res) => {
                 user,
                 auth_token: 'Bearer ' + token,
                 message: "Logged in successfully!",
-                redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+                redirect: user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard',
             });
         }
         else {
@@ -216,7 +216,7 @@ exports.googleSignin = async (req, res) => {
             res.status(200).cookie('token', Bearer, cookieOptions).json({
                 auth_token: Bearer,
                 success: "Login success!",
-                redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+                redirect: user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard',
             });
         };
 
@@ -231,7 +231,7 @@ exports.getSingleUser = async (req, res, next) => {
         res.status(200).json({
             success: true, 
             user,
-            redirect: user.role === 'admin' ? '/admin' : '/user/profile',
+            redirect: user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard',
         });
     } catch (err) {
         return res.status(500).json({ error: err.message });

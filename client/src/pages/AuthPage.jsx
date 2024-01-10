@@ -10,11 +10,11 @@ function AuthPage() {
   useEffect(()=>{
 
     if(!isAuthenticated){
-      navigate('/sign-in');
+      navigate('/login');
     }else if(user.role == 'user'){
-      navigate('/user/dashboard');
+      navigate('/user-dashboard/profile');
     }else if(user.role == 'admin'){
-      navigate('/admin/dashboard');
+      navigate('/admin-dashboard');
     }
 
   },[user, isAuthenticated, navigate])
